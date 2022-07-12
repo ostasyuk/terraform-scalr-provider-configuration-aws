@@ -3,11 +3,6 @@ variable "region" {
   default = "us-east-1"
 }
 
-variable "credentials_type" {
-  type = string
-  default = "role_delegation"
-}
-
 variable "account_type" {
   type = string
   default = "regular"
@@ -45,7 +40,9 @@ resource "random_string" "external_id" {
 }
 
 locals {
-  external_id = var.external_id != "" ? var.external_id : random_string.external_id[0].result
+  external_id = (var.trusted_entity_type == "aws_account" ?
+                (var.external_id != "" ? var.external_id : random_string.external_id[0].result)
+                : null)
 }
 
 variable "existing_iam_role" {
@@ -95,4 +92,9 @@ variable "principal_username" {
   type = string
   default = "scalr-saas"
   description = "The principal AWS user that is allowed to assume the role. Default: Scalr managed AWS user"
+}
+
+variable "export_shell_variables" {
+  type = bool
+  default = false
 }
