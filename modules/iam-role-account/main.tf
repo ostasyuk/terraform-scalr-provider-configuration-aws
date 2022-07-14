@@ -1,3 +1,24 @@
+data "aws_iam_user" "principal" {
+  count = var.create_principal_user == false && var.scalr_managed_principals == false ? 1 : 0
+  user_name = var.principal_username
+}
+
+resource "aws_iam_user" "principal" {
+  count = var.scalr_managed_principals == false && var.create_principal_user == true  ? 1 : 0
+  name = var.principal_username
+}
+
+locals {
+  username = can(data.aws_iam_user.principal[0].user_name) ? data.aws_iam_user.principal[0].user_name : (can(aws_iam_user.principal[0].name) ? aws_iam_user.principal[0].name : null)
+  created_arn = can(data.aws_iam_user.principal[0].arn) ? data.aws_iam_user.principal[0].arn : (can(aws_iam_user.principal[0].arn) ? aws_iam_user.principal[0].arn : null)
+  identifier = local.created_arn == null ? "arn:aws:iam::${var.principal_account_id}:user/${var.principal_username}" : local.created_arn
+}
+
+resource "aws_iam_access_key" "principal" {
+  count = local.username != null ? 1 : 0
+  user = local.username
+}
+
 data "aws_iam_policy_document" "scalr_aws_integration_assume_role" {
   statement {
     effect = "Allow"
@@ -5,7 +26,7 @@ data "aws_iam_policy_document" "scalr_aws_integration_assume_role" {
 
     principals {
       type        = "AWS"
-      identifiers = ["arn:aws:iam::${var.principal_account_id}:user/${var.principal_username}"]
+      identifiers = [local.identifier]
     }
 
     condition {

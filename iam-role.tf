@@ -7,8 +7,17 @@ data "aws_iam_role" "existing" {
   name = var.role_name
 }
 
+resource "random_string" "external_id" {
+  count = var.external_id == "" ? 1 : 0
+  length  = 16
+  special = false
+}
+
 locals {
   create_role = var.existing_iam_role == false || can(data.aws_iam_role.existing[0]) == false
+  external_id = (var.trusted_entity_type == "aws_account" ?
+  (var.external_id != "" ? var.external_id : random_string.external_id[0].result)
+  : null)
 }
 
 module "account" {
@@ -23,6 +32,8 @@ module "account" {
   principal_username = var.principal_username
   role_name = var.role_name
   region = var.region
+  create_principal_user = var.create_principal_user
+  scalr_managed_principals = var.scalr_managed_principals
 }
 
 module "service" {
@@ -49,11 +60,8 @@ locals {
 }
 
 locals {
-   iam_role_arn = (local.create_role == false ? data.aws_iam_role.existing[0].arn :
+  iam_role_arn = (local.create_role == false ? data.aws_iam_role.existing[0].arn :
                   (var.trusted_entity_type == "aws_account" ? module.account[0].arn : module.service[0].arn))
-//  iam_role_arn = "arn:aws:iam::323697247385:role/ScalrIntegrationRole"
-}
-
-output "create_role" {
-  value = local.create_role
+  principal_access_key = var.trusted_entity_type == "aws_account" ? module.account[0].principal_access_key : null
+  principal_secret_key = var.trusted_entity_type == "aws_account" ? module.account[0].principal_secret_key : null
 }
