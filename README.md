@@ -38,6 +38,7 @@ module "existing-configuration" {
   
   # creates with existing role
   existing_iam_role = true
+  external_id = "randomString1234"
   
   # To share the configuration with environments set their names, to share for all - set ["*"]
   scalr_environments = ["TeamA-Prod", "TeamA-Dev"] 

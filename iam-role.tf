@@ -1,7 +1,3 @@
-provider "aws" {
-  region = var.region
-}
-
 data "aws_iam_role" "existing" {
   count = var.existing_iam_role == true ? 1 : 0
   name = var.role_name
@@ -15,8 +11,8 @@ resource "random_string" "external_id" {
 
 locals {
   create_role = var.existing_iam_role == false || can(data.aws_iam_role.existing[0]) == false
-  external_id = (var.trusted_entity_type == "aws_account" && var.existing_iam_role == false ?
-  (var.external_id != "" ? var.external_id : random_string.external_id[0].result)
+  external_id = (var.trusted_entity_type == "aws_account" ?
+  (var.external_id != "" ? var.external_id : ( var.existing_iam_role == false ? random_string.external_id[0].result : null))
   : null)
 }
 
