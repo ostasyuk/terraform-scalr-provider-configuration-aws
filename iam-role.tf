@@ -62,6 +62,6 @@ locals {
 locals {
   iam_role_arn = (local.create_role == false ? data.aws_iam_role.existing[0].arn :
                   (var.trusted_entity_type == "aws_account" ? module.account[0].arn : module.service[0].arn))
-  principal_access_key = var.trusted_entity_type == "aws_account" ? module.account[0].principal_access_key : null
-  principal_secret_key = var.trusted_entity_type == "aws_account" ? module.account[0].principal_secret_key : null
+  principal_access_key = var.trusted_entity_type == "aws_account" && can(module.account[0]) ? module.account[0].principal_access_key : null
+  principal_secret_key = var.trusted_entity_type == "aws_account" && can(module.account[0]) ? module.account[0].principal_secret_key : null
 }

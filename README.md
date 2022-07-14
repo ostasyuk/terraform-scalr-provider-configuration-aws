@@ -28,7 +28,8 @@ The basic usage of the module. It will create a configuration with the existing 
 
 ```hcl
 module "existing-configuration" {
-  source = "scalr-modules/terraform-scalr-provider-configuration-aws"
+  # TODO: change to "scalr-modules/terraform-scalr-provider-configuration-aws" once it's published into the public registry
+  source = "github.com/emocharnik/terraform-scalr-provider-configuration-aws"
   
   # required parameters:
   name = "scalr-managed-aws-account-configuration"
@@ -39,7 +40,7 @@ module "existing-configuration" {
   existing_iam_role = true
   
   # To share the configuration with environments set their names, to share for all - set ["*"]
-  environments = ["TeamA-Prod", "TeamA-Dev"] 
+  scalr_environments = ["TeamA-Prod", "TeamA-Dev"] 
 }
 ```
 
@@ -47,7 +48,8 @@ Creates a provider configuration with the module-created IAM role with the trust
 
 ```hcl
 module "aws-account-scalr-configuration" {
-  source = "scalr-modules/terraform-scalr-provider-configuration-aws"
+  # TODO: change to "scalr-modules/terraform-scalr-provider-configuration-aws" once it's published into the public registry
+  source = "github.com/emocharnik/terraform-scalr-provider-configuration-aws"
   
   name = "scalr-managed-aws-account-configuration"
   role_name = "ScalrProviderConfiguration"
@@ -62,7 +64,8 @@ Creates a provider configuration with the module-created IAM role with the trust
 
 ```hcl
 module "aws-account-user--configuration" {
-  source = "scalr-modules/terraform-scalr-provider-configuration-aws"
+  # TODO: change to "scalr-modules/terraform-scalr-provider-configuration-aws" once it's published into the public registry
+  source = "github.com/emocharnik/terraform-scalr-provider-configuration-aws"
   
   name = "scalr-managed-aws-account-configuration"
   role_name = "ScalrProviderConfiguration"
@@ -82,7 +85,8 @@ Creates a provider configuration with the module-created IAM role with the trust
 
 ```hcl
 module "aws-account-scalr-configuration" {
-  source = "scalr-modules/terraform-scalr-provider-configuration-aws"
+ # TODO: change to "scalr-modules/terraform-scalr-provider-configuration-aws" once it's published into the public registry
+  source = "github.com/emocharnik/terraform-scalr-provider-configuration-aws"
   
   name = "scalr-managed-aws-account-configuration"
   role_name = "ScalrProviderConfiguration"
@@ -90,7 +94,7 @@ module "aws-account-scalr-configuration" {
   
   policy_permissions = ["ec2:*"]
   
-  # set trusted_entity_type to "aws_service". Is available only for on-premise Scalr and Scalr Agents on AWS.
+  # set trusted_entity_type to "aws_service". It is available only for on-premise Scalr and Scalr Agents on AWS.
   trusted_entity_type = "aws_service"
 }
 ```
@@ -99,7 +103,8 @@ Creates a provider configuration with the module-created IAM role with the trust
 
 ```hcl
 module "aws-account-scalr-configuration" {
-  source = "scalr-modules/terraform-scalr-provider-configuration-aws"
+  # TODO: change to "scalr-modules/terraform-scalr-provider-configuration-aws" once it's published into the public registry
+  source = "github.com/emocharnik/terraform-scalr-provider-configuration-aws"
   
   name = "scalr-managed-aws-account-configuration"
   role_name = "ScalrProviderConfiguration"
