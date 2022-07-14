@@ -8,14 +8,14 @@ data "aws_iam_role" "existing" {
 }
 
 resource "random_string" "external_id" {
-  count = var.external_id == "" ? 1 : 0
+  count = var.external_id == "" && var.existing_iam_role == false ? 1 : 0
   length  = 16
   special = false
 }
 
 locals {
   create_role = var.existing_iam_role == false || can(data.aws_iam_role.existing[0]) == false
-  external_id = (var.trusted_entity_type == "aws_account" ?
+  external_id = (var.trusted_entity_type == "aws_account" && var.existing_iam_role == false ?
   (var.external_id != "" ? var.external_id : random_string.external_id[0].result)
   : null)
 }
