@@ -72,7 +72,7 @@ variable "trusted_entity_type" {
 
 variable "external_id" {
   type = string
-  description = "The external ID for the AWS account trusted entity type. Leave blank for the auto-generated value."
+  description = "The external ID for the AWS account trusted entity type. Leave blank for the auto-generated value. Required when importing the existing role."
   default = ""
 }
 
