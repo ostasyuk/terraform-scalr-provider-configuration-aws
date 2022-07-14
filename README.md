@@ -28,8 +28,7 @@ The basic usage of the module. It will create a configuration with the existing 
 
 ```hcl
 module "existing-configuration" {
-  # TODO: change to "scalr-modules/terraform-scalr-provider-configuration-aws" once it's published into the public registry
-  source = "github.com/emocharnik/terraform-scalr-provider-configuration-aws"
+  source = "github.com/Scalr/terraform-scalr-provider-configuration-aws"
   
   # required parameters:
   name = "scalr-managed-aws-account-configuration"
@@ -49,8 +48,7 @@ Creates a provider configuration with the module-created IAM role with the trust
 
 ```hcl
 module "aws-account-scalr-configuration" {
-  # TODO: change to "scalr-modules/terraform-scalr-provider-configuration-aws" once it's published into the public registry
-  source = "github.com/emocharnik/terraform-scalr-provider-configuration-aws"
+  source = "github.com/Scalr/terraform-scalr-provider-configuration-aws"
   
   name = "scalr-managed-aws-account-configuration"
   role_name = "ScalrProviderConfiguration"
@@ -65,8 +63,7 @@ Creates a provider configuration with the module-created IAM role with the trust
 
 ```hcl
 module "aws-account-user--configuration" {
-  # TODO: change to "scalr-modules/terraform-scalr-provider-configuration-aws" once it's published into the public registry
-  source = "github.com/emocharnik/terraform-scalr-provider-configuration-aws"
+  source = "github.com/Scalr/terraform-scalr-provider-configuration-aws"
   
   name = "scalr-managed-aws-account-configuration"
   role_name = "ScalrProviderConfiguration"
@@ -86,8 +83,7 @@ Creates a provider configuration with the module-created IAM role with the trust
 
 ```hcl
 module "aws-account-scalr-configuration" {
- # TODO: change to "scalr-modules/terraform-scalr-provider-configuration-aws" once it's published into the public registry
-  source = "github.com/emocharnik/terraform-scalr-provider-configuration-aws"
+  source = "github.com/Scalr/terraform-scalr-provider-configuration-aws"
   
   name = "scalr-managed-aws-account-configuration"
   role_name = "ScalrProviderConfiguration"
@@ -104,8 +100,7 @@ Creates a provider configuration with the module-created IAM role with the trust
 
 ```hcl
 module "aws-account-scalr-configuration" {
-  # TODO: change to "scalr-modules/terraform-scalr-provider-configuration-aws" once it's published into the public registry
-  source = "github.com/emocharnik/terraform-scalr-provider-configuration-aws"
+  source = "github.com/Scalr/terraform-scalr-provider-configuration-aws"
   
   name = "scalr-managed-aws-account-configuration"
   role_name = "ScalrProviderConfiguration"
