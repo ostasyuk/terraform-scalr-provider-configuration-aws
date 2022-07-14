@@ -26,7 +26,7 @@ Usage
 Before you start, please authorize [Scalr](https://docs.scalr.com/en/latest/scalr-terraform-provider/index.html#authentication) and [AWS](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#authentication-and-configuration) providers.
 The basic usage of the module. It will create a configuration with the existing role:
 
-```hcl
+```hcl-terraform
 module "existing-configuration" {
   # TODO: change to "scalr-modules/terraform-scalr-provider-configuration-aws" once it's published into the public registry
   source = "github.com/emocharnik/terraform-scalr-provider-configuration-aws"
@@ -47,7 +47,7 @@ module "existing-configuration" {
 
 Creates a provider configuration with the module-created IAM role with the trusted entity type AWS account (managed by Scalr):
 
-```hcl
+```hcl-terraform
 module "aws-account-scalr-configuration" {
   # TODO: change to "scalr-modules/terraform-scalr-provider-configuration-aws" once it's published into the public registry
   source = "github.com/emocharnik/terraform-scalr-provider-configuration-aws"
@@ -63,7 +63,7 @@ module "aws-account-scalr-configuration" {
 
 Creates a provider configuration with the module-created IAM role with the trusted entity type AWS account (managed by user):
 
-```hcl
+```hcl-terraform
 module "aws-account-user--configuration" {
   # TODO: change to "scalr-modules/terraform-scalr-provider-configuration-aws" once it's published into the public registry
   source = "github.com/emocharnik/terraform-scalr-provider-configuration-aws"
@@ -84,7 +84,7 @@ module "aws-account-user--configuration" {
 
 Creates a provider configuration with the module-created IAM role with the trusted entity type AWS service:
 
-```hcl
+```hcl-terraform
 module "aws-account-scalr-configuration" {
  # TODO: change to "scalr-modules/terraform-scalr-provider-configuration-aws" once it's published into the public registry
   source = "github.com/emocharnik/terraform-scalr-provider-configuration-aws"
@@ -102,7 +102,7 @@ module "aws-account-scalr-configuration" {
 
 Creates a provider configuration with the module-created IAM role with the trusted entity type AWS service in the Gov Cloud Region:
 
-```hcl
+```hcl-terraform
 module "aws-account-scalr-configuration" {
   # TODO: change to "scalr-modules/terraform-scalr-provider-configuration-aws" once it's published into the public registry
   source = "github.com/emocharnik/terraform-scalr-provider-configuration-aws"
@@ -118,5 +118,28 @@ module "aws-account-scalr-configuration" {
   # set the account_type to "gov-cloud", for the China Cloud Region set "cn-cloud". 
   # Currently, only "aws_service" trusted_entity_type is supported for Gov and China regions on Scalr SaaS
   account_type = "gov-cloud"
+}
+```
+
+To make created provider configuration as the default one in an environment add the following:
+
+```hcl-terraform
+resource "scalr_environment" "test" {
+  name = "TeamA-dev"
+  default_provider_configuration = [module.existing-configuration.configuration_id] 
+}
+```
+
+To use created provider configuration in the workspaces add the following:
+
+```hcl-terraform
+resource "scalr_workspace" "test" {
+  name = "test"
+  environment = "env-1234567c"
+
+  provider_configuration {
+    id = module.existing-configuration.configuration_id
+    # alias = "west" # uncomment if you have more than one AWS provider in the workspace
+  }
 }
 ```
