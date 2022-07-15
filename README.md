@@ -9,7 +9,7 @@ Features
 - Creates a provider configuration with the module-created role. The role can have the following trusted entities types:
 
   - AWS account - Allow entities in other AWS accounts belonging to you or a 3rd party to perform actions in this account.
-  - AWS service - Allow AWS services like EC2, Lambda, or others to perform actions in this account.
+  - AWS service - Allow AWS services like EC2 to perform actions in this account.
   
 - Custom IAM policy documents for the module-created IAM roles.
 
