@@ -46,7 +46,7 @@ module "existing-configuration" {
 
 Creates a provider configuration with the module-created IAM role with the trusted entity type AWS account (managed by Scalr):
 
-```hcl
+```hclh
 module "aws-account-scalr-configuration" {
   source = "github.com/Scalr/terraform-scalr-provider-configuration-aws"
   
