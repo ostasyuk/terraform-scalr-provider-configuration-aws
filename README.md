@@ -1,4 +1,4 @@
-Scalr provider configuration AWS
+Scalr provider configuration AWSg
 ================================
 
 Features
