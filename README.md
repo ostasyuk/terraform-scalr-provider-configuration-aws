@@ -67,7 +67,7 @@ module "aws-account-user--configuration" {
   
   name = "scalr-managed-aws-account-configuration"
   role_name = "ScalrProviderConfiguration"
-  scalr_account_id = "acc-1234567"
+  scalr_account_id = "acc-1234567"g
 
   # User-managed principals
   scalr_managed_principals = false
