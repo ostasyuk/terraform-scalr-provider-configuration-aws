@@ -1,7 +1,7 @@
 Scalr provider configuration AWS
 ================================
 
-Features
+Featuresty
 --------
 
 - Creates a provider configuration with the existing AWS IAM role.
