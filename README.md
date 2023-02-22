@@ -61,7 +61,7 @@ module "aws-account-scalr-configuration" {
 
 Creates a provider configuration with the module-created IAM role with the trusted entity type AWS account (managed by user):
 
-```hcl
+```hclrt
 module "aws-account-user--configuration" {
   source = "github.com/Scalr/terraform-scalr-provider-configuration-aws"
   
